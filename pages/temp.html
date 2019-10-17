@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>ILO - Inspection</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" />
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Material Design Bootstrap -->
+    <link href="/css/mdb.min.css" rel="stylesheet" />
+    <!-- leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+        integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+        crossorigin="" />
+    <link rel="stylesheet" href="/css/addons/markercluster/MarkerCluster.css" />
+    <link rel="stylesheet" href="/css/addons/markercluster/MarkerCluster.Default.css" />
+    <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css'
+        rel='stylesheet' />
+
+
+    <!-- Your custom styles (optional) -->
+    <link href="/css/style.css" rel="stylesheet" />
+</head>
+
+<body>
+    <!-- Start your project here-->
+
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-lg navbar-dark blue darken-4">
+        <!-- Navbar brand -->
+        <a class="navbar-brand" href="#">ILO</a>
+
+        <!-- Collapse button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+            aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Collapsible content -->
+        <div class="collapse navbar-collapse" id="basicExampleNav">
+            <!-- Links -->
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">
+                        <i class="fab fa fa-home"></i> Home
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/companies/">
+                        <i class="fab fa fa-building"></i>
+                        Companies</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/tasks/">
+                        <i class="fab fa fa-tasks"></i>
+                        Tasks</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/labors/">
+                        <i class="fab fa fa-users"></i>
+                        Labors</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/inspectors/">
+                        <i class="fab fa fa-search"></i>
+                        Inspectors</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn-success" href="/kpis/">
+                        <i class="fab fa fa-chart-bar"></i>
+                        KPIs</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/stc/">
+                        <i class="fab fa fa-chart-bar"></i>
+                        Statistics</a>
+                </li>
+                <!-- Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">Operations</a>
+                    <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="/maps/inspectors/">Tracking</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </li>
+            </ul>
+            <!-- Links -->
+
+            <form class="form-inline">
+                <div class="md-form my-0">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
+                </div>
+            </form>
+            <ul class="navbar-nav nav-flex-icons">
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-secondary"
+                        aria-labelledby="navbarDropdownMenuLink-333">
+                        <a class="dropdown-item" href="/setting/">Setting</a>
+                        <a class="dropdown-item" href="#">Configuration</a>
+                        <a class="dropdown-item" href="/login/">Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        </div>
+        <!-- Collapsible content -->
+    </nav>
+    <!--/.Navbar-->
+    <!-- Body -->
+    <main class="pt-4">
+        <div class="container-fluid">
+            
+        </div>
+    </main>
+    <!-- /Body -->
+
+    <!-- Footer -->
+
+    <footer class="page-footer font-small indigo">
+        <!-- Footer Links -->
+        <div class="container text-center text-md-left">
+            <!-- Grid row -->
+            <div class="row"></div>
+            <!-- Grid row -->
+        </div>
+        <!-- Footer Links -->
+
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3">
+            © 2019 Copyright:
+            <a href="https://mdbootstrap.com/education/bootstrap/">
+                ILO Inspection module</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
+    <!-- /Start your project here-->
+
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="/js/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="/js/mdb.min.js"></script>
+    <!-- Plugins   -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+    <!-- <script src="js/addons/datamaps.all.min.js"></script> -->
+    <script src="/js/addons/datamaps.geo.js"></script>
+    <script src="/js/addons/datatables.min.js"></script>
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
+        integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+        crossorigin=""></script>
+    <script src="/js/addons/markercluster/leaflet.markercluster-src.js"></script>
+    <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
+    <!--Echart-->
+    <script  src="/js/modules/echarts.min.js"></script>
+    <!--Echart-->
+    <!-- OWN JS -->
+    <script src="/js/locations.js"></script>
+    <script src="/js/script.js"></script>
+    <script src="/js/modules/chart-code.js"></script>
+</body>
+
+</html>

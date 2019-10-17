@@ -1,0 +1,93 @@
+.cascading-admin-card .admin-up {
+  margin-left: 4%;
+  margin-right: 4%;
+  margin-top: -20px;
+}
+.cascading-admin-card .admin-up .fa,
+.z-depth-2 {
+  box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.cascading-admin-card .admin-up .fa {
+  padding: 1.7rem;
+  font-size: 2rem;
+  color: #fff;
+  text-align: left;
+  border-radius: 3px;
+}
+
+.cascading-admin-card .admin-up .data {
+  float: right;
+  margin-top: 2rem;
+  text-align: right;
+}
+
+.profile-card {
+  margin-top: 100px;
+}
+
+.profile-card .avatar {
+  max-width: 150px;
+  max-height: 150px;
+  margin: -70px auto 0;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+ul.striped li {
+  padding: 0.5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+#tasks .bullet {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+#tasks .avatar-placeholder {
+  height: 32px;
+  color: rgba(255, 255, 255, 0.75);
+  text-align: center;
+  line-height: 32px;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: default;
+  width: 32px;
+  margin-right: 8px;
+  display: inline-block;
+}
+
+#tasks .avatar {
+  width: 32px;
+  margin-right: 8px;
+  display: inline-block;
+  border-radius: 50%;
+}
+.avatar-64 {
+  width: 64px;
+  margin-right: 8px;
+  display: inline-block;
+  border-radius: 50%;
+}
+
+.border-area {
+  border-radius: 0.25rem;
+  border: 1px solid #eee;
+}
+.border-area .table {
+  border-radius: 0.5rem;
+  margin-bottom: 0rem;
+  box-shadow: none;
+}
+
+.stc-card {
+  margin-top: -50px;
+}

@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>ILO - Inspection</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" />
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Material Design Bootstrap -->
+    <link href="/css/mdb.min.css" rel="stylesheet" />
+    <!-- leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+        integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+        crossorigin="" />
+    <link rel="stylesheet" href="/css/addons/markercluster/MarkerCluster.css" />
+    <link rel="stylesheet" href="/css/addons/markercluster/MarkerCluster.Default.css" />
+    <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css'
+        rel='stylesheet' />
+
+
+    <!-- Your custom styles (optional) -->
+    <link href="/css/style.css" rel="stylesheet" />
+</head>
+
+<body>
+    <!-- Start your project here-->
+
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-lg navbar-dark blue darken-4">
+        <!-- Navbar brand -->
+        <a class="navbar-brand" href="#">ILO</a>
+
+        <!-- Collapse button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+            aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Collapsible content -->
+        <div class="collapse navbar-collapse" id="basicExampleNav">
+            <!-- Links -->
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">
+                        <i class="fab fa fa-home"></i> Home
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/companies/">
+                        <i class="fab fa fa-building"></i>
+                        Companies</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/tasks/">
+                        <i class="fab fa fa-tasks"></i>
+                        Tasks</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/labors/">
+                        <i class="fab fa fa-users"></i>
+                        Labors</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/inspectors/">
+                        <i class="fab fa fa-search"></i>
+                        Inspectors</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn-success" href="/kpis/">
+                        <i class="fab fa fa-chart-bar"></i>
+                        KPIs</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/stc/">
+                        <i class="fab fa fa-chart-bar"></i>
+                        Statistics</a>
+                </li>
+                <!-- Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">Operations</a>
+                    <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="/maps/inspectors/">Tracking</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </li>
+            </ul>
+            <!-- Links -->
+
+            <form class="form-inline">
+                <div class="md-form my-0">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
+                </div>
+            </form>
+            <ul class="navbar-nav nav-flex-icons">
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-secondary"
+                        aria-labelledby="navbarDropdownMenuLink-333">
+                        <a class="dropdown-item" href="/setting/">Setting</a>
+                        <a class="dropdown-item" href="#">Configuration</a>
+                        <a class="dropdown-item" href="/login/">Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        </div>
+        <!-- Collapsible content -->
+    </nav>
+    <!--/.Navbar-->
+    <!-- Body -->
+    <main class="pt-4">
+        <div class="container-fluid">
+            <div class="row">
+    <div class="col">
+
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title blue-text darken-4">Tasks</h5>
+                    <hr>
+                    <div class="row " id="tasks">
+                        <div class="col-3 mx-auto mb-r">
+
+    <div class="card">
+        <div class="card-body pt-3">
+            <button type="button" class="btn btn-primary btn-lg btn-block Ripple-parent"><i class="fa fa-plus left"></i>
+                New Task<div class="Ripple " style="top: 0px; left: 0px; width: 0px; height: 0px;"></div></button>
+            <div class="mt-2"><small>Tasks State:</small>
+                <ul class="striped list-unstyled">
+                    <li><span class="bullet green"></span> New <span
+                            class="badge primary badge-primary float-right">14</span></li>
+                    <li><span class="bullet blue"></span> InProgress <span
+                            class="badge primary badge-primary float-right">1</span></li>
+                    <li><span class="bullet red"></span> Rejected <span
+                            class="badge primary badge-primary float-right">3</span></li>
+                    <li><span class="bullet yellow"></span> Done <span
+                            class="badge primary badge-primary float-right">9</span></li>
+                    <li><span class="bullet orange"></span> Postponed <span
+                            class="badge primary badge-primary float-right">5</span></li>
+
+                </ul>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div id="mapid" style="height: 300px"></div>
+        </div>
+    </div>
+</div>
+
+<div class="col-9 mb-r">
+
+    <div class="card">
+        <div class="card-body">
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox0"><label class="form-check-label" for="checkbox0"></label>
+                            </fieldset>
+                        </th>
+                        <th>Inspector</th>
+                        <th>Task#</th>
+                        <th>Company</th>
+                        <th>Inspection</th>
+                        <th>Status</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            Day Woodward
+                        </td>
+                        <td><a href="/company/task/">4336430</a></td>
+                        <td>PLASMOS</td>
+                        <td>Lorem enim</td>
+                        <td>
+                            <span class="badge blue">inprogress</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 13/01/2019</small></span></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            Torres Howe
+                        </td>
+                        <td><a href="/company/task/">2435283</a></td>
+                        <td>EXTRAGENE</td>
+                        <td>sunt occaecat</td>
+                        <td>
+                            <span class="badge red">new</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 25/03/2019</small></span></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            Arnold Cummings
+                        </td>
+                        <td><a href="/company/task/">8625327</a></td>
+                        <td>FUTURITY</td>
+                        <td>eu commodo</td>
+                        <td>
+                            <span class="badge green">new</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 06/04/2019</small></span></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            Patti Sawyer
+                        </td>
+                        <td><a href="/company/task/">2668672</a></td>
+                        <td>CALLFLEX</td>
+                        <td>irure duis</td>
+                        <td>
+                            <span class="badge blue">new</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 12/02/2019</small></span></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            England Hull
+                        </td>
+                        <td><a href="/company/task/">8082447</a></td>
+                        <td>STROZEN</td>
+                        <td>esse adipisicing</td>
+                        <td>
+                            <span class="badge blue">new</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 21/01/2019</small></span></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            Frieda Velez
+                        </td>
+                        <td><a href="/company/task/">8946014</a></td>
+                        <td>TERRASYS</td>
+                        <td>incididunt dolore</td>
+                        <td>
+                            <span class="badge warning-color">inprogress</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 31/01/2019</small></span></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            Berger Moody
+                        </td>
+                        <td><a href="/company/task/">3616157</a></td>
+                        <td>CONFERIA</td>
+                        <td>ex aliquip</td>
+                        <td>
+                            <span class="badge blue">new</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 24/01/2019</small></span></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            Fern Roberts
+                        </td>
+                        <td><a href="/company/task/">6336932</a></td>
+                        <td>ZILLAR</td>
+                        <td>eu enim</td>
+                        <td>
+                            <span class="badge green">done</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 15/01/2019</small></span></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            Gordon Harrison
+                        </td>
+                        <td><a href="/company/task/">6984464</a></td>
+                        <td>PHEAST</td>
+                        <td>exercitation excepteur</td>
+                        <td>
+                            <span class="badge blue">new</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 03/04/2019</small></span></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            Mollie Oconnor
+                        </td>
+                        <td><a href="/company/task/">4736916</a></td>
+                        <td>BARKARAMA</td>
+                        <td>irure consequat</td>
+                        <td>
+                            <span class="badge red">inprogress</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 04/03/2019</small></span></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            Ramirez Suarez
+                        </td>
+                        <td><a href="/company/task/">7849207</a></td>
+                        <td>GEEKOLOGY</td>
+                        <td>irure elit</td>
+                        <td>
+                            <span class="badge red">inprogress</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 20/01/2019</small></span></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            Delacruz Keller
+                        </td>
+                        <td><a href="/company/task/">7859707</a></td>
+                        <td>ZIDOX</td>
+                        <td>tempor consectetur</td>
+                        <td>
+                            <span class="badge blue">inprogress</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 05/02/2019</small></span></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            Huffman Mcleod
+                        </td>
+                        <td><a href="/company/task/">8180219</a></td>
+                        <td>UTARIAN</td>
+                        <td>aliquip ut</td>
+                        <td>
+                            <span class="badge blue">done</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 13/03/2019</small></span></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            Dean Avila
+                        </td>
+                        <td><a href="/company/task/">6193685</a></td>
+                        <td>SNOWPOKE</td>
+                        <td>elit ut</td>
+                        <td>
+                            <span class="badge blue">done</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 11/02/2019</small></span></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            Betty Burks
+                        </td>
+                        <td><a href="/company/task/">3733399</a></td>
+                        <td>ZOID</td>
+                        <td>sint veniam</td>
+                        <td>
+                            <span class="badge blue">done</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 01/03/2019</small></span></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            Contreras Vega
+                        </td>
+                        <td><a href="/company/task/">5998970</a></td>
+                        <td>JETSILK</td>
+                        <td>pariatur laborum</td>
+                        <td>
+                            <span class="badge warning-color">inprogress</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 06/03/2019</small></span></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            Yesenia Gregory
+                        </td>
+                        <td><a href="/company/task/">8181053</a></td>
+                        <td>INRT</td>
+                        <td>ipsum qui</td>
+                        <td>
+                            <span class="badge blue">new</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 13/01/2019</small></span></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            Freeman Savage
+                        </td>
+                        <td><a href="/company/task/">2513694</a></td>
+                        <td>MEDESIGN</td>
+                        <td>aute Lorem</td>
+                        <td>
+                            <span class="badge warning-color">done</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 15/02/2019</small></span></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            Gwendolyn Glover
+                        </td>
+                        <td><a href="/company/task/">8331402</a></td>
+                        <td>WARETEL</td>
+                        <td>pariatur mollit</td>
+                        <td>
+                            <span class="badge red">inprogress</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 29/01/2019</small></span></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            Frederick Key
+                        </td>
+                        <td><a href="/company/task/">2418461</a></td>
+                        <td>EXERTA</td>
+                        <td>officia excepteur</td>
+                        <td>
+                            <span class="badge warning-color">new</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 18/03/2019</small></span></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            Norton Guy
+                        </td>
+                        <td><a href="/company/task/">8943287</a></td>
+                        <td>ZORK</td>
+                        <td>ad dolor</td>
+                        <td>
+                            <span class="badge green">done</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 14/01/2019</small></span></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            Kayla Mcdowell
+                        </td>
+                        <td><a href="/company/task/">8861635</a></td>
+                        <td>RONELON</td>
+                        <td>tempor veniam</td>
+                        <td>
+                            <span class="badge warning-color">inprogress</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 12/01/2019</small></span></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            Karin Oneil
+                        </td>
+                        <td><a href="/company/task/">5068576</a></td>
+                        <td>NURALI</td>
+                        <td>nisi officia</td>
+                        <td>
+                            <span class="badge warning-color">new</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 23/03/2019</small></span></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            Dianna Goodman
+                        </td>
+                        <td><a href="/company/task/">2470023</a></td>
+                        <td>FUELWORKS</td>
+                        <td>duis proident</td>
+                        <td>
+                            <span class="badge green">done</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 23/03/2019</small></span></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            Mcclain Harmon
+                        </td>
+                        <td><a href="/company/task/">7116363</a></td>
+                        <td>LOCAZONE</td>
+                        <td>deserunt quis</td>
+                        <td>
+                            <span class="badge blue">inprogress</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 18/01/2019</small></span></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            Cheri Banks
+                        </td>
+                        <td><a href="/company/task/">8320865</a></td>
+                        <td>RODEMCO</td>
+                        <td>commodo id</td>
+                        <td>
+                            <span class="badge blue">inprogress</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 18/03/2019</small></span></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            Bonner Carter
+                        </td>
+                        <td><a href="/company/task/">7072651</a></td>
+                        <td>OPTICALL</td>
+                        <td>excepteur excepteur</td>
+                        <td>
+                            <span class="badge green">done</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 21/02/2019</small></span></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            Erickson Simmons
+                        </td>
+                        <td><a href="/company/task/">3169634</a></td>
+                        <td>OVATION</td>
+                        <td>aliquip minim</td>
+                        <td>
+                            <span class="badge green">inprogress</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 21/03/2019</small></span></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            Madelyn Mercado
+                        </td>
+                        <td><a href="/company/task/">7885348</a></td>
+                        <td>REPETWIRE</td>
+                        <td>ut cillum</td>
+                        <td>
+                            <span class="badge red">done</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 02/04/2019</small></span></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            Austin Watkins
+                        </td>
+                        <td><a href="/company/task/">3925737</a></td>
+                        <td>BOLAX</td>
+                        <td>duis non</td>
+                        <td>
+                            <span class="badge red">new</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 27/02/2019</small></span></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            William Casey
+                        </td>
+                        <td><a href="/company/task/">7847025</a></td>
+                        <td>EVIDENDS</td>
+                        <td>in esse</td>
+                        <td>
+                            <span class="badge warning-color">new</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 19/03/2019</small></span></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            Amber Crawford
+                        </td>
+                        <td><a href="/company/task/">4818429</a></td>
+                        <td>OMATOM</td>
+                        <td>esse nulla</td>
+                        <td>
+                            <span class="badge green">new</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 27/01/2019</small></span></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            Love French
+                        </td>
+                        <td><a href="/company/task/">7895519</a></td>
+                        <td>PASTURIA</td>
+                        <td>veniam ut</td>
+                        <td>
+                            <span class="badge green">inprogress</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 30/01/2019</small></span></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            Hubbard Molina
+                        </td>
+                        <td><a href="/company/task/">7586742</a></td>
+                        <td>NORSUP</td>
+                        <td>magna duis</td>
+                        <td>
+                            <span class="badge warning-color">new</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 04/04/2019</small></span></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            Cherry Armstrong
+                        </td>
+                        <td><a href="/company/task/">6063773</a></td>
+                        <td>ACLIMA</td>
+                        <td>sunt occaecat</td>
+                        <td>
+                            <span class="badge red">done</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 07/01/2019</small></span></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            Mcneil Simpson
+                        </td>
+                        <td><a href="/company/task/">8944481</a></td>
+                        <td>DREAMIA</td>
+                        <td>eiusmod laboris</td>
+                        <td>
+                            <span class="badge warning-color">inprogress</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 16/03/2019</small></span></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            Waters Stephenson
+                        </td>
+                        <td><a href="/company/task/">3664914</a></td>
+                        <td>MARVANE</td>
+                        <td>pariatur voluptate</td>
+                        <td>
+                            <span class="badge green">inprogress</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 12/03/2019</small></span></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            Lawrence Shaw
+                        </td>
+                        <td><a href="/company/task/">5029134</a></td>
+                        <td>ANDERSHUN</td>
+                        <td>aute esse</td>
+                        <td>
+                            <span class="badge warning-color">done</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 31/01/2019</small></span></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            Guzman Campbell
+                        </td>
+                        <td><a href="/company/task/">4297948</a></td>
+                        <td>SUREPLEX</td>
+                        <td>ipsum sit</td>
+                        <td>
+                            <span class="badge warning-color">new</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 02/03/2019</small></span></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            Calhoun Ellis
+                        </td>
+                        <td><a href="/company/task/">2584270</a></td>
+                        <td>KOFFEE</td>
+                        <td>ex ipsum</td>
+                        <td>
+                            <span class="badge green">done</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 16/01/2019</small></span></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            Solis Steele
+                        </td>
+                        <td><a href="/company/task/">7476033</a></td>
+                        <td>CEPRENE</td>
+                        <td>dolore et</td>
+                        <td>
+                            <span class="badge blue">new</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 18/03/2019</small></span></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            Louise Osborn
+                        </td>
+                        <td><a href="/company/task/">8488236</a></td>
+                        <td>EXOBLUE</td>
+                        <td>cupidatat velit</td>
+                        <td>
+                            <span class="badge green">new</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 25/03/2019</small></span></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            Esther Ramos
+                        </td>
+                        <td><a href="/company/task/">6926918</a></td>
+                        <td>EYEWAX</td>
+                        <td>deserunt eiusmod</td>
+                        <td>
+                            <span class="badge blue">new</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 02/03/2019</small></span></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            Marsha Rowland
+                        </td>
+                        <td><a href="/company/task/">5555396</a></td>
+                        <td>TROLLERY</td>
+                        <td>quis reprehenderit</td>
+                        <td>
+                            <span class="badge green">inprogress</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 04/02/2019</small></span></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            Morris Madden
+                        </td>
+                        <td><a href="/company/task/">5639778</a></td>
+                        <td>JAMNATION</td>
+                        <td>duis excepteur</td>
+                        <td>
+                            <span class="badge blue">inprogress</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 05/01/2019</small></span></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            Maxwell Hawkins
+                        </td>
+                        <td><a href="/company/task/">3927581</a></td>
+                        <td>PANZENT</td>
+                        <td>sit id</td>
+                        <td>
+                            <span class="badge blue">inprogress</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 06/01/2019</small></span></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            Jensen Snow
+                        </td>
+                        <td><a href="/company/task/">4501942</a></td>
+                        <td>CORECOM</td>
+                        <td>magna esse</td>
+                        <td>
+                            <span class="badge warning-color">inprogress</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 28/01/2019</small></span></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            Beverly Holmes
+                        </td>
+                        <td><a href="/company/task/">2888754</a></td>
+                        <td>TURNABOUT</td>
+                        <td>duis pariatur</td>
+                        <td>
+                            <span class="badge red">new</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 08/01/2019</small></span></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            Rebekah Bass
+                        </td>
+                        <td><a href="/company/task/">4593628</a></td>
+                        <td>SHOPABOUT</td>
+                        <td>dolor sit</td>
+                        <td>
+                            <span class="badge blue">new</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 09/03/2019</small></span></td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <fieldset class="form-check"><input class="form-check-input" type="checkbox"
+                                    id="checkbox1"><label class="form-check-label" for="checkbox1"></label>
+                            </fieldset>
+                        </th>
+                        <td>
+                            <img src="http://placehold.it/64x64" alt="Danny Collins" class="avatar">
+                            <!-- <div class="avatar-placeholder green darken-3">A</div>  -->
+                            Stone Spence
+                        </td>
+                        <td><a href="/company/task/">5374756</a></td>
+                        <td>NURPLEX</td>
+                        <td>cillum minim</td>
+                        <td>
+                            <span class="badge red">done</span>
+                        </td>
+                        <td><span class="grey-text"><small><i class="fa fa-clock"></i> 26/02/2019</small></span></td>
+                    </tr>
+                    
+                </tbody>
+
+
+            </table>
+
+
+        </div>
+    </div>
+</div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+        </div>
+    </main>
+    <!-- /Body -->
+
+    <!-- Footer -->
+
+    <footer class="page-footer font-small indigo">
+        <!-- Footer Links -->
+        <div class="container text-center text-md-left">
+            <!-- Grid row -->
+            <div class="row"></div>
+            <!-- Grid row -->
+        </div>
+        <!-- Footer Links -->
+
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3">
+            © 2019 Copyright:
+            <a href="https://mdbootstrap.com/education/bootstrap/">
+                ILO Inspection module</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
+    <!-- /Start your project here-->
+
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="/js/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="/js/mdb.min.js"></script>
+    <!-- Plugins   -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+    <!-- <script src="js/addons/datamaps.all.min.js"></script> -->
+    <script src="/js/addons/datamaps.geo.js"></script>
+    <script src="/js/addons/datatables.min.js"></script>
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
+        integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+        crossorigin=""></script>
+    <script src="/js/addons/markercluster/leaflet.markercluster-src.js"></script>
+    <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
+    <!--Echart-->
+    <script  src="/js/modules/echarts.min.js"></script>
+    <!--Echart-->
+    <!-- OWN JS -->
+    <script src="/js/locations.js"></script>
+    <script src="/js/script.js"></script>
+    <script src="/js/modules/chart-code.js"></script>
+</body>
+
+</html>

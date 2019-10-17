@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>ILO - Inspection</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" />
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Material Design Bootstrap -->
+    <link href="/css/mdb.min.css" rel="stylesheet" />
+    <!-- leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+        integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+        crossorigin="" />
+    <link rel="stylesheet" href="/css/addons/markercluster/MarkerCluster.css" />
+    <link rel="stylesheet" href="/css/addons/markercluster/MarkerCluster.Default.css" />
+    <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css'
+        rel='stylesheet' />
+
+
+    <!-- Your custom styles (optional) -->
+    <link href="/css/style.css" rel="stylesheet" />
+</head>
+
+<body>
+    <!-- Start your project here-->
+
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-lg navbar-dark blue darken-4">
+        <!-- Navbar brand -->
+        <a class="navbar-brand" href="#">ILO</a>
+
+        <!-- Collapse button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+            aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Collapsible content -->
+        <div class="collapse navbar-collapse" id="basicExampleNav">
+            <!-- Links -->
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">
+                        <i class="fab fa fa-home"></i> Home
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/companies/">
+                        <i class="fab fa fa-building"></i>
+                        Companies</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/tasks/">
+                        <i class="fab fa fa-tasks"></i>
+                        Tasks</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/labors/">
+                        <i class="fab fa fa-users"></i>
+                        Labors</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/inspectors/">
+                        <i class="fab fa fa-search"></i>
+                        Inspectors</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn-success" href="/kpis/">
+                        <i class="fab fa fa-chart-bar"></i>
+                        KPIs</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/stc/">
+                        <i class="fab fa fa-chart-bar"></i>
+                        Statistics</a>
+                </li>
+                <!-- Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">Operations</a>
+                    <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="/maps/inspectors/">Tracking</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </li>
+            </ul>
+            <!-- Links -->
+
+            <form class="form-inline">
+                <div class="md-form my-0">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
+                </div>
+            </form>
+            <ul class="navbar-nav nav-flex-icons">
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-secondary"
+                        aria-labelledby="navbarDropdownMenuLink-333">
+                        <a class="dropdown-item" href="/setting/">Setting</a>
+                        <a class="dropdown-item" href="#">Configuration</a>
+                        <a class="dropdown-item" href="/login/">Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        </div>
+        <!-- Collapsible content -->
+    </nav>
+    <!--/.Navbar-->
+    <!-- Body -->
+    <main class="pt-4">
+        <div class="container-fluid">
+            <div class="row">
+    <div class="col-9 mb-4">
+        <!-- main -->
+        <div class="row">
+            <div class="col-6">
+                <div class="row">
+
+                    <div class="col-6 mb-5">
+                        <a href="/risk-details/">
+                            <div class="card card-cascade cascading-admin-card">
+                                <div class="admin-up"><i class="fa fa-chart-line red accent-4"></i>
+                                    <div class="data">
+                                        <p>High Risk</p>
+                                        <h4 class="font-weight-bold dark-grey-text">2000</h4>
+                                    </div>
+                                </div>
+                                <div class="card-body card-body-cascade">
+                                    <div class="progress mb-3" style="opacity: 0.7; height: 6px;">
+                                        <div class="progress-bar bg-primary bg-indigo" role="progressbar"
+                                            aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"
+                                            style="width: 25%; height: 6px;"></div>
+                                    </div>
+                                    <p class="card-text">Better than last week (25%)</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col-6 mb-5">
+                        <div class="card card-cascade cascading-admin-card">
+                            <div class="admin-up"><i class="fa fa-chart-line warning-color"></i>
+                                <div class="data fadeIn">
+                                    <p>Medium risk</p>
+                                    <h4 class="font-weight-bold dark-grey-text">1200</h4>
+                                </div>
+                            </div>
+                            <div class="card-body card-body-cascade">
+                                <div class="progress mb-3" style="opacity: 0.7; height: 6px;">
+                                    <div class="progress-bar red accent-2 bg-indigo" role="progressbar"
+                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"
+                                        style="width: 25%; height: 6px;"></div>
+                                </div>
+                                <p class="card-text">Worse than last week (25%)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 mb-4">
+                        <div class="card card-cascade cascading-admin-card">
+                            <div class="admin-up"><i class="fa fa-chart-pie yellow darken-1"></i>
+                                <div class="data">
+                                    <p>Low Risk</p>
+                                    <h4 class="font-weight-bold dark-grey-text">20000</h4>
+                                </div>
+                            </div>
+                            <div class="card-body card-body-cascade">
+                                <div class="progress mb-3" style="opacity: 0.7; height: 6px;">
+                                    <div class="progress-bar red accent-2 bg-indigo" role="progressbar"
+                                        aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"
+                                        style="width: 75%; height: 6px;"></div>
+                                </div>
+                                <p class="card-text">Worse than last week (75%)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 mb-4">
+                        <div class="card card-cascade cascading-admin-card">
+                            <div class="admin-up"><i class="fa fa-chart-bar green accent-5"></i>
+                                <div class="data">
+                                    <p>Normal</p>
+                                    <h4 class="font-weight-bold dark-grey-text">2000</h4>
+                                </div>
+                            </div>
+                            <div class="card-body card-body-cascade">
+                                <div class="progress mb-3" style="opacity: 0.7; height: 6px;">
+                                    <div class="progress-bar bg-primary bg-indigo" role="progressbar" aria-valuenow="25"
+                                        aria-valuemin="0" aria-valuemax="100" style="width: 25%; height: 6px;"></div>
+                                </div>
+                                <p class="card-text">Better than last week (25%)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STC Total  -->
+
+
+                <div class="card">
+                    <div class="card-body row">
+                        <!--First column-->
+                        <div class="col-3 mb-2">
+                            <h3 class=" mb-1 font-weight-bold">200K</h3>
+                            <p class="">Company</p>
+                        </div>
+                        <!--/First column-->
+
+                        <!--Second column-->
+                        <div class="col-3 mb-2">
+                            <h3 class=" mb-1 red-text darken-4 font-weight-bold">1.2M</h3>
+                            <p class="">Employee</p>
+                        </div>
+                        <!--/Second column-->
+
+                        <!--Third column-->
+                        <div class="col-3 mb-2">
+                            <h3 class=" mb-1 font-weight-bold">61K</h3>
+                            <p class="">Owner</p>
+                        </div>
+                        <!--/Third column-->
+
+                        <!--Fourth column-->
+                        <div class="col-3">
+                            <h3 class=" mb-1 font-weight-bold red-text">246</h3>
+                            <p class="">Inspector</p>
+                        </div>
+                        <!--/Fourth column-->
+                    </div>
+                </div>
+
+
+                <!-- /STC total -->
+            </div>
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header  primary-color text-white ">
+                        <div class="row">
+                            <div class="col-8">
+                                <h4>Inspections per region</h4>
+                            </div>
+                            <div class="col-4"> <a href="/maps/" class="float-right"><i
+                                        class="fas fa-map-marker white-text fa-2x"></i></a>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="card-body">
+                        <div id="map" style="height: 200px;width:100%"></div>
+                        <hr>
+                        <ul class="list-group">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Health & Safety inspections
+                                <span class="badge badge-primary badge-pill">140</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Late wages inspections
+                                <span class="badge badge-primary badge-pill">110</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Normal (periodic)
+                                <span class="badge badge-primary badge-pill">80</span>
+                            </li>
+                            <li class="list-group-item d-flex red lighten-4 justify-content-between align-items-center">
+                                Work Injuries (reported)
+                                <span class="badge badge-primary badge-pill">20</span>
+                            </li>
+                        </ul>
+                        <hr>
+                        <ul class="list-group list-group-horizontal">
+                            <li class="list-group-item">
+                                <i class="fas fa-check-circle green-text pr-1"></i>
+                                <span class="mb-2">320 Correct</span>
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-times-circle red-text pr-1"></i>
+                                <span class="mb-2">110 Violated Company</span></li>
+
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- side -->
+    <div class="col-3 mb-4">
+
+        <!--Card-->
+        <div class="card users-listing-small mb-4">
+            <div class="card-header primary-color text-white">
+                <h4>Top Inspectors</h4>
+            </div>
+            <!--Card content-->
+            <div class="card-body">
+                <ul class="list-unstyled">
+                    <li class="media">
+                        <div class="mr-2">
+                            <img alt="User avatar"
+                                src="https://secure.gravatar.com/avatar/8c051fd54e4c811e02bbc78d50549280?s=30&amp;d=mm&amp;r=g"
+                                srcset="https://secure.gravatar.com/avatar/8c051fd54e4c811e02bbc78d50549280?s=60&amp;d=mm&amp;r=g 2x"
+                                class="avatar avatar-30 photo" height="30" width="30"> </div>
+                        <div class="media-body">
+                            <h5 class="mt-0 mb-2 font-weight-bold">1.
+                                <a href="/profile?id=2">Michal Szymanski</a>
+                            </h5>
+                            <!-- Achievements -->
+                            <a href="?user=2&amp;sortby=likes&amp;top=all" class="badge teal darken-4">287<i
+                                    class="far fa-thumbs-up mx-1"></i>Tasks today</a>
+                            <a href="?user=2&amp;sortby=date&amp;top=all" class="badge teal darken-2">143<i
+                                    class="far fa-image mx-1"></i>Total</a>
+                            <!-- Achievements -->
+                        </div>
+                    </li>
+                    <hr>
+                    <li class="media">
+                        <div class="mr-2">
+                            <img alt="User avatar"
+                                src="https://secure.gravatar.com/avatar/4cf642822dc5caf650facd79b8f64a95?s=30&amp;d=mm&amp;r=g"
+                                srcset="https://secure.gravatar.com/avatar/4cf642822dc5caf650facd79b8f64a95?s=60&amp;d=mm&amp;r=g 2x"
+                                class="avatar avatar-30 photo" height="30" width="30"> </div>
+                        <div class="media-body">
+                            <h5 class="mt-0 mb-2 font-weight-bold">2.
+                                <a href="/profile?id=15082">Marta Szymanska</a>
+                            </h5>
+                            <!-- Achievements -->
+                            <a href="?user=15082&amp;sortby=likes&amp;top=all" class="badge teal darken-4">108<i
+                                    class="far fa-thumbs-up mx-1"></i>Tasks
+                                today</a>
+                            <a href="?user=15082&amp;sortby=date&amp;top=all" class="badge teal darken-2">117<i
+                                    class="far fa fa-tasks mx-1"></i>Total</a>
+                            <!-- Achievements -->
+                        </div>
+                    </li>
+                    <hr>
+                    <li class="media">
+                        <div class="mr-2">
+                            <img alt="User avatar"
+                                src="https://secure.gravatar.com/avatar/22077f042101df62b9e93adc93221f1f?s=30&amp;d=mm&amp;r=g"
+                                srcset="https://secure.gravatar.com/avatar/22077f042101df62b9e93adc93221f1f?s=60&amp;d=mm&amp;r=g 2x"
+                                class="avatar avatar-30 photo" height="30" width="30"> </div>
+                        <div class="media-body">
+                            <h5 class="mt-0 mb-2 font-weight-bold">3.
+                                <a href="/profile?id=20636">Bartłomiej Malanowski</a>
+                            </h5>
+                            <!-- Achievements -->
+                            <a href="?user=20636&amp;sortby=likes&amp;top=all" class="badge teal darken-4">86<i
+                                    class="far fa-thumbs-up mx-1"></i>Tasks
+                                today</a>
+                            <a href="?user=20636&amp;sortby=date&amp;top=all" class="badge teal darken-2">33<i
+                                    class="far fa-image mx-1"></i>Total</a>
+                            <!-- Achievements -->
+                        </div>
+                    </li>
+                    <hr>
+                    <li class="media">
+                        <div class="mr-2">
+                            <img alt="User avatar"
+                                src="https://secure.gravatar.com/avatar/1735ef5a0e5885d1af078823f921ce32?s=30&amp;d=mm&amp;r=g"
+                                srcset="https://secure.gravatar.com/avatar/1735ef5a0e5885d1af078823f921ce32?s=60&amp;d=mm&amp;r=g 2x"
+                                class="avatar avatar-30 photo" height="30" width="30"> </div>
+                        <div class="media-body">
+                            <h5 class="mt-0 mb-2 font-weight-bold">4.
+                                <a href="/profile?id=39334">Piotr Glejzer</a>
+                            </h5>
+                            <!-- Achievements -->
+                            <a href="?user=39334&amp;sortby=likes&amp;top=all" class="badge teal darken-4">80<i
+                                    class="far fa-thumbs-up mx-1"></i>Tasks
+                                today</a>
+                            <a href="?user=39334&amp;sortby=date&amp;top=all" class="badge teal darken-2">72<i
+                                    class="far fa-image mx-1"></i>Total</a>
+                            <!-- Achievements -->
+                        </div>
+                    </li>
+                    <hr>
+                    <li class="media">
+                        <div class="mr-2">
+                            <img alt="User avatar"
+                                src="https://secure.gravatar.com/avatar/c20d32048e3bc62fa62ffe92ed20fa5d?s=30&amp;d=mm&amp;r=g"
+                                srcset="https://secure.gravatar.com/avatar/c20d32048e3bc62fa62ffe92ed20fa5d?s=60&amp;d=mm&amp;r=g 2x"
+                                class="avatar avatar-30 photo" height="30" width="30"> </div>
+                        <div class="media-body">
+                            <h5 class="mt-0 mb-2 font-weight-bold">5.
+                                <a href="/profile?id=18537">Sebastian Kaczmarek</a>
+                            </h5>
+                            <!-- Achievements -->
+                            <a href="?user=18537&amp;sortby=likes&amp;top=all" class="badge teal darken-4">38<i
+                                    class="far fa-thumbs-up mx-1"></i>Tasks
+                                today</a>
+                            <a href="?user=18537&amp;sortby=date&amp;top=all" class="badge teal darken-2">16<i
+                                    class="far fa-image mx-1"></i>Total</a>
+                            <!-- Achievements -->
+                        </div>
+                    </li>
+                    <hr>
+                    <a href="/inspectors/" class="btn btn-danger float-right">See All
+                        <i class="fab fa fa-arrow-right "></i>
+                    </a>
+                </ul>
+            </div>
+        </div>
+        <!--/.Card-->
+
+    </div>
+</div>
+        </div>
+    </main>
+    <!-- /Body -->
+
+    <!-- Footer -->
+
+    <footer class="page-footer font-small indigo">
+        <!-- Footer Links -->
+        <div class="container text-center text-md-left">
+            <!-- Grid row -->
+            <div class="row"></div>
+            <!-- Grid row -->
+        </div>
+        <!-- Footer Links -->
+
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3">
+            © 2019 Copyright:
+            <a href="https://mdbootstrap.com/education/bootstrap/">
+                ILO Inspection module</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
+    <!-- /Start your project here-->
+
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="/js/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="/js/mdb.min.js"></script>
+    <!-- Plugins   -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+    <!-- <script src="js/addons/datamaps.all.min.js"></script> -->
+    <script src="/js/addons/datamaps.geo.js"></script>
+    <script src="/js/addons/datatables.min.js"></script>
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
+        integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+        crossorigin=""></script>
+    <script src="/js/addons/markercluster/leaflet.markercluster-src.js"></script>
+    <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
+    <!--Echart-->
+    <script  src="/js/modules/echarts.min.js"></script>
+    <!--Echart-->
+    <!-- OWN JS -->
+    <script src="/js/locations.js"></script>
+    <script src="/js/script.js"></script>
+    <script src="/js/modules/chart-code.js"></script>
+</body>
+
+</html>

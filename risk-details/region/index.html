@@ -1,0 +1,2090 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>ILO - Inspection</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" />
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Material Design Bootstrap -->
+    <link href="/css/mdb.min.css" rel="stylesheet" />
+    <!-- leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+        integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+        crossorigin="" />
+    <link rel="stylesheet" href="/css/addons/markercluster/MarkerCluster.css" />
+    <link rel="stylesheet" href="/css/addons/markercluster/MarkerCluster.Default.css" />
+    <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css'
+        rel='stylesheet' />
+
+
+    <!-- Your custom styles (optional) -->
+    <link href="/css/style.css" rel="stylesheet" />
+</head>
+
+<body>
+    <!-- Start your project here-->
+
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-lg navbar-dark blue darken-4">
+        <!-- Navbar brand -->
+        <a class="navbar-brand" href="#">ILO</a>
+
+        <!-- Collapse button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+            aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Collapsible content -->
+        <div class="collapse navbar-collapse" id="basicExampleNav">
+            <!-- Links -->
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">
+                        <i class="fab fa fa-home"></i> Home
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/companies/">
+                        <i class="fab fa fa-building"></i>
+                        Companies</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/tasks/">
+                        <i class="fab fa fa-tasks"></i>
+                        Tasks</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/labors/">
+                        <i class="fab fa fa-users"></i>
+                        Labors</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/inspectors/">
+                        <i class="fab fa fa-search"></i>
+                        Inspectors</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn-success" href="/kpis/">
+                        <i class="fab fa fa-chart-bar"></i>
+                        KPIs</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/stc/">
+                        <i class="fab fa fa-chart-bar"></i>
+                        Statistics</a>
+                </li>
+                <!-- Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">Operations</a>
+                    <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="/maps/inspectors/">Tracking</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </li>
+            </ul>
+            <!-- Links -->
+
+            <form class="form-inline">
+                <div class="md-form my-0">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
+                </div>
+            </form>
+            <ul class="navbar-nav nav-flex-icons">
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-secondary"
+                        aria-labelledby="navbarDropdownMenuLink-333">
+                        <a class="dropdown-item" href="/setting/">Setting</a>
+                        <a class="dropdown-item" href="#">Configuration</a>
+                        <a class="dropdown-item" href="/login/">Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        </div>
+        <!-- Collapsible content -->
+    </nav>
+    <!--/.Navbar-->
+    <!-- Body -->
+    <main class="pt-4">
+        <div class="container-fluid">
+            <div class="row">
+    <div class="col">
+
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title blue-text darken-4">Region risk details</h5>
+                    <hr>
+                    <div class="row " id="">
+                        <div class="col-9">
+    <div class="row">
+        <div class="col">
+            <table id="dtBasicExample" class="table table-striped table-hover table-sm table-borderless" cellspacing="0"
+    width="100%">
+    <thead>
+        <tr>
+            <th class="th-sm">Company code
+            </th>
+            <th class="th-sm">Company name
+            </th>
+
+            <th class="th-sm">Address
+            </th>
+            <th class="th-sm">Owner
+            </th>
+            <th class="th-sm">Phone
+            </th>
+            <th class="th-sm">Employees
+            </th>
+            <th class="thh-sm">
+                <i class="fas fa-wrench"></i>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- "id": 4362,
+            "employees": 6222,
+            "location": "KA",
+            "name": {
+            "first": "Pearson",
+            "last": "Lancaster"
+            },
+            "company": "ZANILLA",
+            "phone": "+995 (868) 472-3748",
+            "address": "692 College Place, Indio, Michigan, 3989",
+            "latitude": "42.1897",
+            "longitude": "41.738" -->
+        
+        <tr>
+            <td>5356</td>
+            <td>ZAPHIRE</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/42.5536,43.4235">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    907 Devon Avenue, Allison, Minnesota, 2614
+                </a>
+            </td>
+            <td>Carole - White</td>
+            <td>+995 (890) 417-3628</td>
+            <td>3529</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>5704</td>
+            <td>ARCTIQ</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/43.5579,42.258">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    335 Broadway , Coleville, West Virginia, 5392
+                </a>
+            </td>
+            <td>Rodgers - Chaney</td>
+            <td>+995 (957) 441-2974</td>
+            <td>6978</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>9524</td>
+            <td>BYTREX</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/42.0655,40.8028">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    414 Kensington Street, Sandston, Indiana, 3776
+                </a>
+            </td>
+            <td>Lara - Hardy</td>
+            <td>+995 (951) 406-2930</td>
+            <td>3628</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>7505</td>
+            <td>PYRAMIS</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/42.0864,43.0633">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    422 Stockton Street, Vallonia, Nebraska, 5432
+                </a>
+            </td>
+            <td>Gregory - Sargent</td>
+            <td>+995 (836) 502-2600</td>
+            <td>8454</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>9668</td>
+            <td>EXERTA</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/41.1134,41.254">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    114 Dorchester Road, Masthope, Illinois, 9979
+                </a>
+            </td>
+            <td>Vaughn - Whitney</td>
+            <td>+995 (997) 429-2069</td>
+            <td>2342</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>5884</td>
+            <td>DATAGEN</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/41.7604,42.5818">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    879 Nautilus Avenue, Richville, Wyoming, 1750
+                </a>
+            </td>
+            <td>Ray - Yang</td>
+            <td>+995 (953) 454-2803</td>
+            <td>2483</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>3749</td>
+            <td>CYTREK</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/42.8555,45.7408">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    561 Boynton Place, Why, Colorado, 5552
+                </a>
+            </td>
+            <td>Crystal - Owens</td>
+            <td>+995 (937) 539-3169</td>
+            <td>9338</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>9647</td>
+            <td>LUXURIA</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/42.2243,43.2574">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    501 Pioneer Street, Dennard, Vermont, 2801
+                </a>
+            </td>
+            <td>Yvette - Albert</td>
+            <td>+995 (869) 576-2993</td>
+            <td>8987</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>3435</td>
+            <td>MICRONAUT</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/43.1985,41.2474">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    945 Miller Place, Elliott, Arkansas, 3227
+                </a>
+            </td>
+            <td>Ashlee - Hickman</td>
+            <td>+995 (842) 431-2480</td>
+            <td>9077</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>8708</td>
+            <td>BITTOR</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/41.701,45.3849">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    197 Clermont Avenue, Boykin, Washington, 6531
+                </a>
+            </td>
+            <td>Concepcion - Frye</td>
+            <td>+995 (803) 498-2530</td>
+            <td>7882</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>6916</td>
+            <td>RETROTEX</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/41.2759,43.6979">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    224 Visitation Place, Smock, Palau, 7554
+                </a>
+            </td>
+            <td>Mayer - Wallace</td>
+            <td>+995 (861) 410-2610</td>
+            <td>9151</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>9269</td>
+            <td>COMSTAR</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/41.2294,44.103">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    885 Maple Avenue, Sperryville, Marshall Islands, 6351
+                </a>
+            </td>
+            <td>Hyde - Moody</td>
+            <td>+995 (933) 456-2084</td>
+            <td>9811</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>3076</td>
+            <td>QUADEEBO</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/42.8496,46.9844">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    979 Railroad Avenue, Blodgett, Federated States Of Micronesia, 9597
+                </a>
+            </td>
+            <td>Bernard - Morris</td>
+            <td>+995 (840) 431-2192</td>
+            <td>2747</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>7493</td>
+            <td>ZILODYNE</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/43.6055,42.1594">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    206 Sackman Street, Iberia, Oklahoma, 1757
+                </a>
+            </td>
+            <td>Langley - Powers</td>
+            <td>+995 (903) 591-3368</td>
+            <td>5324</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>6497</td>
+            <td>DOGSPA</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/43.7327,42.9694">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    362 Meserole Street, Leming, Alabama, 6291
+                </a>
+            </td>
+            <td>Barr - Gray</td>
+            <td>+995 (813) 578-2534</td>
+            <td>1451</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>4954</td>
+            <td>TELLIFLY</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/42.9205,43.3805">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    107 Berriman Street, Tedrow, Virginia, 8347
+                </a>
+            </td>
+            <td>Tracy - Adams</td>
+            <td>+995 (821) 591-3753</td>
+            <td>8942</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>6041</td>
+            <td>HYDROCOM</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/41.842,43.4371">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    259 Havens Place, Graniteville, Massachusetts, 9427
+                </a>
+            </td>
+            <td>Hoover - Stafford</td>
+            <td>+995 (877) 476-2160</td>
+            <td>6530</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>8664</td>
+            <td>HIVEDOM</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/43.8418,45.3284">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    308 Brighton Court, Tecolotito, Wisconsin, 2218
+                </a>
+            </td>
+            <td>Gould - Melton</td>
+            <td>+995 (870) 557-2855</td>
+            <td>6136</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>8796</td>
+            <td>BOINK</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/41.4243,44.3558">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    666 Schweikerts Walk, Westmoreland, Oregon, 5888
+                </a>
+            </td>
+            <td>Shelby - Acevedo</td>
+            <td>+995 (818) 468-3996</td>
+            <td>9014</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>9880</td>
+            <td>SURELOGIC</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/42.6302,46.0672">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    920 Thornton Street, Groton, Rhode Island, 9412
+                </a>
+            </td>
+            <td>Jamie - Marquez</td>
+            <td>+995 (825) 487-3076</td>
+            <td>7125</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>8932</td>
+            <td>QUORDATE</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/43.9208,42.4678">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    556 Bennet Court, Deseret, Kentucky, 6419
+                </a>
+            </td>
+            <td>Ina - Marshall</td>
+            <td>+995 (831) 425-3610</td>
+            <td>1614</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>3711</td>
+            <td>SQUISH</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/42.7286,45.1841">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    680 Canton Court, Hebron, Connecticut, 4202
+                </a>
+            </td>
+            <td>Shelly - Harris</td>
+            <td>+995 (863) 485-3941</td>
+            <td>985</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>9279</td>
+            <td>ANIMALIA</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/41.4461,42.5884">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    975 Calyer Street, Lorraine, Tennessee, 2647
+                </a>
+            </td>
+            <td>Hughes - King</td>
+            <td>+995 (862) 465-3925</td>
+            <td>1290</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>3345</td>
+            <td>BALOOBA</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/42.4348,44.5353">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    242 Neptune Court, Sexton, Mississippi, 9604
+                </a>
+            </td>
+            <td>Thornton - Kemp</td>
+            <td>+995 (994) 427-2631</td>
+            <td>4306</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>4135</td>
+            <td>NEXGENE</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/42.5354,40.0758">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    260 Seton Place, Lloyd, New York, 4125
+                </a>
+            </td>
+            <td>Diana - Craig</td>
+            <td>+995 (811) 442-3375</td>
+            <td>5605</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>6487</td>
+            <td>RAMJOB</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/43.2646,41.8381">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    670 Woodruff Avenue, Sattley, Hawaii, 2311
+                </a>
+            </td>
+            <td>Ruth - Holloway</td>
+            <td>+995 (873) 582-3900</td>
+            <td>4641</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>8792</td>
+            <td>XYMONK</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/42.4683,42.3748">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    777 Fanchon Place, Wiscon, South Dakota, 448
+                </a>
+            </td>
+            <td>Hannah - Hansen</td>
+            <td>+995 (884) 439-3671</td>
+            <td>6232</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>4729</td>
+            <td>ATGEN</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/43.3523,41.3052">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    509 Barwell Terrace, Brady, Guam, 4149
+                </a>
+            </td>
+            <td>Dianna - Berger</td>
+            <td>+995 (993) 568-3946</td>
+            <td>502</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>7108</td>
+            <td>NETROPIC</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/43.9749,41.3852">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    472 Dahl Court, Dubois, South Carolina, 5331
+                </a>
+            </td>
+            <td>Mercedes - Peters</td>
+            <td>+995 (898) 598-2532</td>
+            <td>7099</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>3179</td>
+            <td>WAAB</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/43.826,46.8415">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    946 Powell Street, Fairhaven, Puerto Rico, 9382
+                </a>
+            </td>
+            <td>Holmes - Espinoza</td>
+            <td>+995 (987) 414-2557</td>
+            <td>831</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>6889</td>
+            <td>EARTHMARK</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/43.2495,41.2017">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    447 Village Court, Snyderville, Texas, 6596
+                </a>
+            </td>
+            <td>Nikki - Whitley</td>
+            <td>+995 (813) 462-2374</td>
+            <td>8371</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>8859</td>
+            <td>ACCUPRINT</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/41.4681,42.7373">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    233 Schenck Avenue, Comptche, Florida, 4009
+                </a>
+            </td>
+            <td>Holland - Macdonald</td>
+            <td>+995 (987) 596-2116</td>
+            <td>3206</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>9178</td>
+            <td>GENEKOM</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/41.2013,46.7543">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    701 Malbone Street, Caberfae, Maryland, 1780
+                </a>
+            </td>
+            <td>Michele - Chen</td>
+            <td>+995 (835) 411-2086</td>
+            <td>2563</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>3453</td>
+            <td>ZYTREX</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/41.6898,45.3719">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    611 Lynch Street, Manchester, Delaware, 5311
+                </a>
+            </td>
+            <td>Daniels - Blankenship</td>
+            <td>+995 (915) 470-3817</td>
+            <td>9161</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>9219</td>
+            <td>GEOFORMA</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/43.9061,45.1366">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    728 Windsor Place, Witmer, North Dakota, 3675
+                </a>
+            </td>
+            <td>Lyons - Chang</td>
+            <td>+995 (826) 557-3370</td>
+            <td>6852</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>5829</td>
+            <td>MUSANPOLY</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/43.0132,44.5448">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    825 Bergen Place, Summerfield, New Jersey, 7709
+                </a>
+            </td>
+            <td>Joseph - Pace</td>
+            <td>+995 (961) 493-2081</td>
+            <td>8158</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>7733</td>
+            <td>PETIGEMS</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/43.3805,46.2466">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    787 Bank Street, Conway, Arizona, 7810
+                </a>
+            </td>
+            <td>Crane - Cote</td>
+            <td>+995 (809) 587-2863</td>
+            <td>6686</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>8386</td>
+            <td>LIMAGE</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/41.5657,40.444">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    749 Graham Avenue, Glenshaw, Ohio, 2104
+                </a>
+            </td>
+            <td>Eula - Harvey</td>
+            <td>+995 (863) 558-2145</td>
+            <td>1044</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>8518</td>
+            <td>MONDICIL</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/42.6598,41.1334">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    669 Haring Street, Hollins, Michigan, 9435
+                </a>
+            </td>
+            <td>Clarke - Dillard</td>
+            <td>+995 (870) 493-2962</td>
+            <td>8959</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>4184</td>
+            <td>GAZAK</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/43.2445,44.5881">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    275 Amboy Street, Chesapeake, American Samoa, 9159
+                </a>
+            </td>
+            <td>Luella - Mcfarland</td>
+            <td>+995 (876) 471-2377</td>
+            <td>6071</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>5091</td>
+            <td>REVERSUS</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/43.5837,45.8988">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    907 Lott Street, Greenbush, Alaska, 3991
+                </a>
+            </td>
+            <td>Petty - Pruitt</td>
+            <td>+995 (811) 471-2796</td>
+            <td>2482</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>9822</td>
+            <td>MIRACLIS</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/43.4786,43.311">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    553 George Street, Devon, Pennsylvania, 5374
+                </a>
+            </td>
+            <td>Richmond - Gallagher</td>
+            <td>+995 (924) 515-2815</td>
+            <td>3992</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>5475</td>
+            <td>DIGINETIC</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/41.6327,40.3817">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    119 Russell Street, Yorklyn, Virgin Islands, 9985
+                </a>
+            </td>
+            <td>Jackie - Bright</td>
+            <td>+995 (884) 548-3256</td>
+            <td>9194</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>8032</td>
+            <td>RODEOCEAN</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/41.9001,41.6615">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    531 Wilson Avenue, Thornport, Northern Mariana Islands, 8950
+                </a>
+            </td>
+            <td>Tia - Holman</td>
+            <td>+995 (831) 477-3362</td>
+            <td>3720</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>5124</td>
+            <td>UNISURE</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/42.3926,41.0984">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    682 Gunther Place, Bridgetown, New Hampshire, 6881
+                </a>
+            </td>
+            <td>Mcleod - Molina</td>
+            <td>+995 (829) 416-3013</td>
+            <td>1598</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>6462</td>
+            <td>SUPPORTAL</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/41.3097,43.4436">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    920 Polhemus Place, Belleview, California, 4808
+                </a>
+            </td>
+            <td>Carmela - Tucker</td>
+            <td>+995 (850) 424-2817</td>
+            <td>5339</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>7152</td>
+            <td>MARQET</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/42.8272,40.4644">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    909 Foster Avenue, Rodman, New Mexico, 6437
+                </a>
+            </td>
+            <td>Dona - Hayden</td>
+            <td>+995 (986) 586-2930</td>
+            <td>7304</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>8263</td>
+            <td>ZOSIS</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/41.9304,44.6401">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    942 Lawrence Avenue, Fairview, Nevada, 2313
+                </a>
+            </td>
+            <td>Sabrina - Jenkins</td>
+            <td>+995 (974) 590-2670</td>
+            <td>4591</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>7873</td>
+            <td>XINWARE</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/43.6828,44.036">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    364 Boerum Street, Boomer, Iowa, 5985
+                </a>
+            </td>
+            <td>Rice - Howard</td>
+            <td>+995 (975) 577-3286</td>
+            <td>655</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>7386</td>
+            <td>BALUBA</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/43.1862,45.7076">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    117 Bay Street, Lacomb, North Carolina, 486
+                </a>
+            </td>
+            <td>Ewing - Valdez</td>
+            <td>+995 (993) 464-2844</td>
+            <td>1618</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>7687</td>
+            <td>ZERBINA</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/42.7834,45.089">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    317 Beaumont Street, Roderfield, Louisiana, 2382
+                </a>
+            </td>
+            <td>Patti - Mooney</td>
+            <td>+995 (817) 548-3517</td>
+            <td>1654</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>8736</td>
+            <td>PETICULAR</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/43.4713,40.0573">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    350 Joralemon Street, Woodburn, Montana, 9444
+                </a>
+            </td>
+            <td>Elsa - Delaney</td>
+            <td>+995 (909) 565-3198</td>
+            <td>2051</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>6658</td>
+            <td>REPETWIRE</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/42.8147,44.5358">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    775 Columbia Place, Keyport, Utah, 9929
+                </a>
+            </td>
+            <td>Maude - Calderon</td>
+            <td>+995 (814) 445-3530</td>
+            <td>3221</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>5406</td>
+            <td>VALREDA</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/41.8974,42.5123">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    537 Hanson Place, Matthews, Missouri, 7319
+                </a>
+            </td>
+            <td>Burton - Holmes</td>
+            <td>+995 (919) 571-2200</td>
+            <td>6815</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>4007</td>
+            <td>FIBEROX</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/41.9531,41.4415">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    652 Roosevelt Court, Warren, Idaho, 2119
+                </a>
+            </td>
+            <td>Louise - Fisher</td>
+            <td>+995 (851) 515-3585</td>
+            <td>9678</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>7801</td>
+            <td>EXTRO</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/41.0695,41.3464">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    973 Hicks Street, Rossmore, Maine, 4594
+                </a>
+            </td>
+            <td>Lena - Delacruz</td>
+            <td>+995 (829) 445-2042</td>
+            <td>8602</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>6670</td>
+            <td>EWAVES</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/42.1577,46.2382">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    564 Green Street, Shepardsville, District Of Columbia, 3528
+                </a>
+            </td>
+            <td>Whitley - Briggs</td>
+            <td>+995 (872) 597-2722</td>
+            <td>117</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>4660</td>
+            <td>IRACK</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/41.3374,45.0481">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    551 Amber Street, Salvo, Georgia, 7305
+                </a>
+            </td>
+            <td>Riggs - Watson</td>
+            <td>+995 (844) 598-3522</td>
+            <td>7249</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>6964</td>
+            <td>DIGIPRINT</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/43.8402,45.2786">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    668 Love Lane, Inkerman, Minnesota, 5136
+                </a>
+            </td>
+            <td>Simmons - Meyer</td>
+            <td>+995 (906) 557-3365</td>
+            <td>3242</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>5229</td>
+            <td>EARTHWAX</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/41.2358,43.8371">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    193 Coyle Street, Barrelville, West Virginia, 9987
+                </a>
+            </td>
+            <td>Rachael - Kaufman</td>
+            <td>+995 (985) 469-3339</td>
+            <td>5089</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>5550</td>
+            <td>FLUM</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/42.7017,42.3507">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    748 Kensington Walk, Wanamie, Indiana, 9768
+                </a>
+            </td>
+            <td>Minerva - Bird</td>
+            <td>+995 (922) 569-3268</td>
+            <td>2286</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>3926</td>
+            <td>SKYPLEX</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/43.566,44.1153">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    555 Channel Avenue, Brownsville, Nebraska, 650
+                </a>
+            </td>
+            <td>Ericka - Ford</td>
+            <td>+995 (996) 420-3610</td>
+            <td>377</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>8020</td>
+            <td>STOCKPOST</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/43.9757,42.6423">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    486 Chester Avenue, Santel, Illinois, 3705
+                </a>
+            </td>
+            <td>Ware - Tran</td>
+            <td>+995 (813) 462-2066</td>
+            <td>4917</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>8806</td>
+            <td>NEWCUBE</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/41.9875,41.9733">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    962 Dunham Place, Nash, Wyoming, 213
+                </a>
+            </td>
+            <td>Elma - Massey</td>
+            <td>+995 (811) 575-2110</td>
+            <td>7902</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>5260</td>
+            <td>BLUEGRAIN</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/42.059,41.9759">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    891 Calder Place, Kiskimere, Colorado, 1954
+                </a>
+            </td>
+            <td>Gillespie - Snow</td>
+            <td>+995 (967) 562-2192</td>
+            <td>8138</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>4006</td>
+            <td>EXIAND</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/41.8547,42.9551">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    498 Melba Court, Bartonsville, Vermont, 108
+                </a>
+            </td>
+            <td>Gallagher - Fitzpatrick</td>
+            <td>+995 (858) 568-3488</td>
+            <td>6258</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>8666</td>
+            <td>KENEGY</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/43.4908,42.7888">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    206 Crystal Street, Waterview, Arkansas, 5916
+                </a>
+            </td>
+            <td>Adams - Prince</td>
+            <td>+995 (951) 410-3157</td>
+            <td>3393</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>8416</td>
+            <td>ARTIQ</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/42.5806,40.7439">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    231 Covert Street, Loma, Washington, 651
+                </a>
+            </td>
+            <td>Amber - Frederick</td>
+            <td>+995 (992) 555-3457</td>
+            <td>3307</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>9737</td>
+            <td>ROCKYARD</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/41.2045,42.8349">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    749 Arion Place, Oretta, Palau, 5652
+                </a>
+            </td>
+            <td>Guadalupe - Nunez</td>
+            <td>+995 (878) 562-2188</td>
+            <td>5244</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>6198</td>
+            <td>QUALITERN</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/43.9176,43.5028">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    875 Bridgewater Street, Trucksville, Marshall Islands, 2431
+                </a>
+            </td>
+            <td>Tami - Sloan</td>
+            <td>+995 (933) 469-2662</td>
+            <td>8753</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>6659</td>
+            <td>COMVOY</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/43.0746,45.3027">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    596 Melrose Street, Swartzville, Federated States Of Micronesia, 2111
+                </a>
+            </td>
+            <td>Castaneda - Davidson</td>
+            <td>+995 (920) 487-3355</td>
+            <td>6244</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>3864</td>
+            <td>APPLIDECK</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/41.2325,46.3059">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    554 Dupont Street, Colton, Oklahoma, 3490
+                </a>
+            </td>
+            <td>Underwood - Peterson</td>
+            <td>+995 (936) 533-3782</td>
+            <td>5476</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>9558</td>
+            <td>XTH</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/43.9485,42.9047">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    668 Dunne Court, Emory, Alabama, 7367
+                </a>
+            </td>
+            <td>Luz - Townsend</td>
+            <td>+995 (867) 592-2598</td>
+            <td>6533</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>9157</td>
+            <td>DYMI</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/42.1699,44.8185">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    818 Kane Place, Retsof, Virginia, 3988
+                </a>
+            </td>
+            <td>Turner - Tate</td>
+            <td>+995 (932) 595-3556</td>
+            <td>4489</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>3665</td>
+            <td>PUSHCART</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/43.0761,41.2115">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    950 Lewis Place, Kylertown, Massachusetts, 4629
+                </a>
+            </td>
+            <td>Christina - Hampton</td>
+            <td>+995 (868) 474-3607</td>
+            <td>6438</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>5002</td>
+            <td>QUALITEX</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/42.374,41.7307">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    596 Gerald Court, Keller, Wisconsin, 1520
+                </a>
+            </td>
+            <td>Lorena - Hicks</td>
+            <td>+995 (944) 529-2820</td>
+            <td>4569</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>8798</td>
+            <td>FLEETMIX</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/41.1714,43.4592">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    111 Boerum Place, Bladensburg, Oregon, 617
+                </a>
+            </td>
+            <td>Camille - Conway</td>
+            <td>+995 (867) 481-2562</td>
+            <td>7544</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>4920</td>
+            <td>ECRATER</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/41.2229,44.0138">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    901 Bartlett Place, Rote, Rhode Island, 1898
+                </a>
+            </td>
+            <td>Olga - Hays</td>
+            <td>+995 (862) 471-3467</td>
+            <td>8641</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>4445</td>
+            <td>AQUOAVO</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/43.4772,46.8103">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    747 Croton Loop, Drytown, Kentucky, 4101
+                </a>
+            </td>
+            <td>John - Church</td>
+            <td>+995 (904) 482-3288</td>
+            <td>2500</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>5343</td>
+            <td>INJOY</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/41.7864,42.2737">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    137 Cobek Court, Celeryville, Connecticut, 4971
+                </a>
+            </td>
+            <td>Hammond - Skinner</td>
+            <td>+995 (938) 563-3329</td>
+            <td>4969</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>3568</td>
+            <td>TERRAGO</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/42.296,45.1664">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    418 Gilmore Court, Montura, Tennessee, 8219
+                </a>
+            </td>
+            <td>Jillian - Schwartz</td>
+            <td>+995 (839) 424-3174</td>
+            <td>826</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>9169</td>
+            <td>QABOOS</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/41.2932,46.8745">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    349 Holly Street, Hiseville, Mississippi, 2257
+                </a>
+            </td>
+            <td>Yvonne - Lynn</td>
+            <td>+995 (810) 522-2787</td>
+            <td>2210</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>7490</td>
+            <td>MINGA</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/42.6548,45.5383">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    188 Gerry Street, Ahwahnee, New York, 5087
+                </a>
+            </td>
+            <td>Brock - Wells</td>
+            <td>+995 (917) 447-2236</td>
+            <td>9031</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>6843</td>
+            <td>SNOWPOKE</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/42.3009,41.7534">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    323 Mill Lane, Succasunna, Hawaii, 3901
+                </a>
+            </td>
+            <td>Miller - Mcmahon</td>
+            <td>+995 (840) 415-3401</td>
+            <td>4140</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>6909</td>
+            <td>MUSAPHICS</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/43.502,43.4118">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    977 Madoc Avenue, Berlin, South Dakota, 7534
+                </a>
+            </td>
+            <td>Poole - Schmidt</td>
+            <td>+995 (804) 559-3820</td>
+            <td>8544</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>5651</td>
+            <td>ENVIRE</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/42.7449,45.8378">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    500 Harman Street, Englevale, Guam, 8834
+                </a>
+            </td>
+            <td>Jensen - Mcclure</td>
+            <td>+995 (945) 421-3674</td>
+            <td>253</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>4791</td>
+            <td>ORBIN</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/41.6239,40.9306">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    760 Roosevelt Place, Blanford, South Carolina, 219
+                </a>
+            </td>
+            <td>Kenya - Lloyd</td>
+            <td>+995 (833) 481-3726</td>
+            <td>7443</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>3818</td>
+            <td>RAMEON</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/42.5166,42.4546">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    128 Beard Street, Hayes, Puerto Rico, 3582
+                </a>
+            </td>
+            <td>Ida - Raymond</td>
+            <td>+995 (805) 466-2127</td>
+            <td>3362</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>7707</td>
+            <td>FUTURIZE</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/43.6636,41.5672">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    836 Chestnut Avenue, Barronett, Texas, 8569
+                </a>
+            </td>
+            <td>Moreno - Mcfadden</td>
+            <td>+995 (920) 527-3964</td>
+            <td>6674</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>9355</td>
+            <td>CANDECOR</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/41.0803,42.1893">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    859 Grand Street, Madrid, Florida, 4924
+                </a>
+            </td>
+            <td>Cynthia - Price</td>
+            <td>+995 (806) 528-2915</td>
+            <td>2898</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>6060</td>
+            <td>IMKAN</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/42.9807,42.8083">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    749 Seaview Avenue, Greenock, Maryland, 2315
+                </a>
+            </td>
+            <td>Herrera - Noble</td>
+            <td>+995 (916) 443-3895</td>
+            <td>385</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>3698</td>
+            <td>ZORROMOP</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/43.4414,40.0708">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    737 Fleet Walk, Leland, Delaware, 9442
+                </a>
+            </td>
+            <td>Christine - Avery</td>
+            <td>+995 (805) 466-3425</td>
+            <td>6418</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>3299</td>
+            <td>STELAECOR</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/42.0053,40.3629">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    332 Sapphire Street, Sunwest, North Dakota, 8221
+                </a>
+            </td>
+            <td>Gladys - Robertson</td>
+            <td>+995 (951) 414-2685</td>
+            <td>3643</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>5300</td>
+            <td>IMANT</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/42.8378,46.7388">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    949 Sunnyside Avenue, Waverly, New Jersey, 9069
+                </a>
+            </td>
+            <td>Roth - Weber</td>
+            <td>+995 (922) 471-2566</td>
+            <td>5912</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>5242</td>
+            <td>JOVIOLD</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/43.9113,44.4049">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    184 Crescent Street, Nelson, Arizona, 107
+                </a>
+            </td>
+            <td>Lindsey - Frank</td>
+            <td>+995 (854) 546-2067</td>
+            <td>2175</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>6407</td>
+            <td>MOLTONIC</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/42.5027,45.3347">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    187 Bokee Court, Mansfield, Ohio, 8435
+                </a>
+            </td>
+            <td>Adrian - Morrison</td>
+            <td>+995 (861) 522-3865</td>
+            <td>3227</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>4362</td>
+            <td>ZANILLA</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/42.1897,41.738">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    692 College Place, Indio, Michigan, 3989
+                </a>
+            </td>
+            <td>Pearson - Lancaster</td>
+            <td>+995 (868) 472-3748</td>
+            <td>6222</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>5559</td>
+            <td>ICOLOGY</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/43.9052,42.5603">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    941 Langham Street, Glendale, American Samoa, 1292
+                </a>
+            </td>
+            <td>Conner - Mathews</td>
+            <td>+995 (977) 585-2357</td>
+            <td>4279</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+        <tr>
+            <td>5585</td>
+            <td>GEEKULAR</td>
+            <td>
+                <a target="_blank" href="https://www.google.com/maps/43.728,46.0086">
+                    <i class="fas fa-map-marker blue-text"></i>
+                    936 Osborn Street, Fairfield, Alaska, 1873
+                </a>
+            </td>
+            <td>Bernice - Roth</td>
+            <td>+995 (953) 503-2865</td>
+            <td>1926</td>
+            <td>
+                <a href="/company/" class="btn-success btn btn-sm white-text">View</a>
+            </td>
+
+        </tr>
+        
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>Company code
+            </th>
+            <th>Company name
+            </th>
+
+            <th>Address
+            </th>
+            <th>Owner
+            </th>
+            <th>Phone
+            </th>
+            <th>Employees
+            </th>
+        </tr>
+    </tfoot>
+</table>
+        </div>
+    </div>
+</div>
+<div class="col-3">
+    <div class="card mb-4">
+        <div class="card-header primary-color text-white">Economic Activities</div>
+        <div class="card-body">
+            <div class="row mb-1">
+                
+                <div class="col-6"><small class="grey-text">Agriculture</small>
+                    <h4>10%</h4>
+                </div>
+                
+                <div class="col-6"><small class="grey-text">Education</small>
+                    <h4>14%</h4>
+                </div>
+                
+                <div class="col-6"><small class="grey-text">Construction</small>
+                    <h4>16%</h4>
+                </div>
+                
+                <div class="col-6"><small class="grey-text">Health and Social</small>
+                    <h4>5%</h4>
+                </div>
+                
+                <div class="col-6"><small class="grey-text">Mining</small>
+                    <h4>15%</h4>
+                </div>
+                
+                <div class="col-6"><small class="grey-text">Electricity and Gas</small>
+                    <h4>22%</h4>
+                </div>
+                
+                <div class="col-6"><small class="grey-text">Other</small>
+                    <h4>18%</h4>
+                </div>
+                
+
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header primary-color text-white">Locations</div>
+        <div class="card-body">
+
+            <div id="mapid" style="height: 250px"></div>
+
+
+        </div>
+    </div>
+
+</div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+        </div>
+    </main>
+    <!-- /Body -->
+
+    <!-- Footer -->
+
+    <footer class="page-footer font-small indigo">
+        <!-- Footer Links -->
+        <div class="container text-center text-md-left">
+            <!-- Grid row -->
+            <div class="row"></div>
+            <!-- Grid row -->
+        </div>
+        <!-- Footer Links -->
+
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3">
+            © 2019 Copyright:
+            <a href="https://mdbootstrap.com/education/bootstrap/">
+                ILO Inspection module</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
+    <!-- /Start your project here-->
+
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="/js/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="/js/mdb.min.js"></script>
+    <!-- Plugins   -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+    <!-- <script src="js/addons/datamaps.all.min.js"></script> -->
+    <script src="/js/addons/datamaps.geo.js"></script>
+    <script src="/js/addons/datatables.min.js"></script>
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
+        integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+        crossorigin=""></script>
+    <script src="/js/addons/markercluster/leaflet.markercluster-src.js"></script>
+    <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
+    <!--Echart-->
+    <script  src="/js/modules/echarts.min.js"></script>
+    <!--Echart-->
+    <!-- OWN JS -->
+    <script src="/js/locations.js"></script>
+    <script src="/js/script.js"></script>
+    <script src="/js/modules/chart-code.js"></script>
+</body>
+
+</html>
