@@ -9,21 +9,21 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" />
     <!-- Bootstrap core CSS -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/lims-demo/css/bootstrap.min.css" rel="stylesheet" />
     <!-- Material Design Bootstrap -->
-    <link href="/css/mdb.min.css" rel="stylesheet" />
+    <link href="/lims-demo/css/mdb.min.css" rel="stylesheet" />
     <!-- leaflet -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
         integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
         crossorigin="" />
-    <link rel="stylesheet" href="/css/addons/markercluster/MarkerCluster.css" />
-    <link rel="stylesheet" href="/css/addons/markercluster/MarkerCluster.Default.css" />
+    <link rel="stylesheet" href="/lims-demo/css/addons/markercluster/MarkerCluster.css" />
+    <link rel="stylesheet" href="/lims-demo/css/addons/markercluster/MarkerCluster.Default.css" />
     <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css'
         rel='stylesheet' />
 
 
     <!-- Your custom styles (optional) -->
-    <link href="/css/style.css" rel="stylesheet" />
+    <link href="/lims-demo/css/style.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -45,40 +45,40 @@
             <!-- Links -->
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/">
+                    <a class="nav-link" href="/lims-demo/">
                         <i class="fab fa fa-home"></i> Home
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/companies/">
+                    <a class="nav-link" href="/lims-demo/companies/">
                         <i class="fab fa fa-building"></i>
                         Companies</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/tasks/">
+                    <a class="nav-link" href="/lims-demo/tasks/">
                         <i class="fab fa fa-tasks"></i>
                         Tasks</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/labors/">
+                    <a class="nav-link" href="/lims-demo/labors/">
                         <i class="fab fa fa-users"></i>
                         Labors</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/inspectors/">
+                    <a class="nav-link" href="/lims-demo/inspectors/">
                         <i class="fab fa fa-search"></i>
                         Inspectors</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link btn-success" href="/kpis/">
+                    <a class="nav-link btn-success" href="/lims-demo/kpis/">
                         <i class="fab fa fa-chart-bar"></i>
                         KPIs</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/stc/">
+                    <a class="nav-link" href="/lims-demo/stc/">
                         <i class="fab fa fa-chart-bar"></i>
                         Statistics</a>
                 </li>
@@ -87,7 +87,7 @@
                     <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">Operations</a>
                     <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="/maps/inspectors/">Tracking</a>
+                        <a class="dropdown-item" href="/lims-demo/maps/inspectors/">Tracking</a>
                         <a class="dropdown-item" href="#">Another action</a>
                         <a class="dropdown-item" href="#">Something else here</a>
                     </div>
@@ -109,9 +109,9 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-secondary"
                         aria-labelledby="navbarDropdownMenuLink-333">
-                        <a class="dropdown-item" href="/setting/">Setting</a>
+                        <a class="dropdown-item" href="/lims-demo/setting/">Setting</a>
                         <a class="dropdown-item" href="#">Configuration</a>
-                        <a class="dropdown-item" href="/login/">Logout</a>
+                        <a class="dropdown-item" href="/lims-demo/login/">Logout</a>
                     </div>
                 </li>
             </ul>
@@ -153,32 +153,32 @@
 
     <!-- SCRIPTS -->
     <!-- JQuery -->
-    <script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="/lims-demo/js/jquery-3.3.1.min.js"></script>
     <!-- Bootstrap tooltips -->
-    <script type="text/javascript" src="/js/popper.min.js"></script>
+    <script type="text/javascript" src="/lims-demo/js/popper.min.js"></script>
     <!-- Bootstrap core JavaScript -->
-    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/lims-demo/js/bootstrap.min.js"></script>
     <!-- MDB core JavaScript -->
-    <script type="text/javascript" src="/js/mdb.min.js"></script>
+    <script type="text/javascript" src="/lims-demo/js/mdb.min.js"></script>
     <!-- Plugins   -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
     <!-- <script src="js/addons/datamaps.all.min.js"></script> -->
-    <script src="/js/addons/datamaps.geo.js"></script>
-    <script src="/js/addons/datatables.min.js"></script>
+    <script src="/lims-demo/js/addons/datamaps.geo.js"></script>
+    <script src="/lims-demo/js/addons/datatables.min.js"></script>
     <!-- Make sure you put this AFTER Leaflet's CSS -->
     <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
         integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
         crossorigin=""></script>
-    <script src="/js/addons/markercluster/leaflet.markercluster-src.js"></script>
+    <script src="/lims-demo/js/addons/markercluster/leaflet.markercluster-src.js"></script>
     <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
     <!--Echart-->
-    <script  src="/js/modules/echarts.min.js"></script>
+    <script src="/lims-demo/js/modules/echarts.min.js"></script>
     <!--Echart-->
     <!-- OWN JS -->
-    <script src="/js/locations.js"></script>
-    <script src="/js/script.js"></script>
-    <script src="/js/modules/chart-code.js"></script>
+    <script src="/lims-demo/js/locations.js"></script>
+    <script src="/lims-demo/js/script.js"></script>
+    <script src="/lims-demo/js/modules/chart-code.js"></script>
 </body>
 
 </html>
